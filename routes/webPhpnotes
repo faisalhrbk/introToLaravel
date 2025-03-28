@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\AboutController;
+use Illuminate\Routing\Router;
+
+use App\Http\Controllers\PraticeController;
+
+// Route::get('/{name}', function ($name) {
+//     echo $name;
+//     // return view('welcome', ["name"=>$name]);
+//     return view ("welcome", compact("name"));
+// });
+// Route::get('/', function () {
+//     return view ('home');
+// });
+//  { name} variable hai  aur usey function kay paramater mai dal kr nichy usekrstien hein
+
+// aur html mai bejhny kayliye [ "name"=>$name ]
+
+//  but compact easy way hai compact("name", "anothervariale")
+//  and to use that variable in blade php use {{$name}}
+
+
+// Route::view("/home", "home");
+
+// to pass data through view
+// Route::view("/home", "home", ['name' => 'John']);
+
+// // redirection  
+// Route::redirect("/", "/home");
+//  pehla paramater se dusry paramater pe bejhna
+
+
+// Route::get("/user", [UserController::class, "getUser"]);
+
+// Route::get("/user/about", [UserController::class, "getAbout"]);
+//  agr name variable ko controller mai pass krna hein to controller function kay paramater mai pass krrengy
+// Route::get("/user/{name}", [UserController::class, "getName"]);
+
+//  agr data ko route kay zariye controller se pass krna hot toh be same chez hogi
+
+// Route::get("/user/userPage", [UserController::class, "getUserPage"]);
+
+// sabak dynamic routes ko static routes kay bad define krna chayea
+
+//blade template
+
+
+// Route::get("/about", [AboutController::class, "getAbout"]);
+
+Route::get("/practice", [PraticeController::class, "pratice"]);

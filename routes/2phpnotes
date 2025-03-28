@@ -1,0 +1,69 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+
+use Illuminate\Routing\Router;
+
+use App\Http\Controllers\PraticeController;
+use App\Http\Controllers\GroupingController;
+
+
+
+// Route::get("/xyz", [PraticeController::class, "pratice"]);
+// Route::post("/addUser", [PraticeController::class, "addUser"]);
+
+// Route::view("/", "pratice.3-pratice")->name("page3");
+
+
+// Route::view("page2/about", "pratice.2-pratice")->name("page2");
+
+// Route::view("facebook/about", "pratice.2-pratice");
+// Route::view("/facebook/messages", "pratice.3-pratice");
+// Route::view("/facebook/text", "pratice.3-pratice");
+// Route::view("/facebook/videos", "pratice.3-pratice");
+
+//1 route grouping with prefix
+// Route::prefix("facebook")->group(function () {
+//     Route::view("/", "pratice.3-pratice");
+//     Route::view("/about", "pratice.2-pratice");
+//     Route::view("/messages", "pratice.3-pratice");
+//     Route::view("/text", "pratice.3-pratice");
+//     Route::view("/videos", "pratice.3-pratice");
+// });
+
+// 2nd  route grouping with controller
+
+// Route::get("show", [GroupingController::class, "show"]);
+// Route::get("add", [GroupingController::class, "add"]);
+// Route::get("delete", [GroupingController::class, "delete"]);
+// Route::get("edit", [GroupingController::class, "edit"]);
+
+
+
+// Route::controller(GroupingController::class)->group(function () {
+//     Route::get("show", "show");
+//     Route::get("add", "add");
+//     Route::get("delete", "delete");
+//     Route::get("edit", "edit");
+// });
+
+
+// 3 middleware in laravel: 3 types
+//   1 notes mai parah hai 3 padhraha hu
+// Route::view("/bro", "pratice.4-pratice")->middleware("ageCountryCheck");
+// Route::view("/about", "pratice.4-pratice");
+
+// Route::middleware("ageCountryCheck")->group(function () {
+
+//     Route::view("/about", "pratice.2-pratice");
+//     Route::view("/messages", "pratice.3-pratice");
+//     Route::view("/text", "pratice.3-pratice");
+//     Route::view("/videos", "pratice.3-pratice");
+// });
+
+
+//2 assigning middleware to routes and multiple orutes
+use App\Http\Middleware\PraticeMw;
+Route::view("/", "pratice.4-pratice")->middleware(PraticeMw::class);
+Route::view("/about", "pratice.4-pratice");
