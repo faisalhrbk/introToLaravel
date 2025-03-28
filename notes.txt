@@ -1,0 +1,1784 @@
+Laravel
+
+
+xampp is a tool that installs php
+MySQL quickily
+
+
+composer is a package management tool in php that helps manage libraries by automatically installing and updating them s
+so with composer we can install Laravel easyiluy and update easily
+
+
+3,how to
+
+ create Laravel app
+
+composer create-project Laravel/Laravel appname
+
+is command se Laravel app banaygi
+
+composer global requite Laravel/installer 
+
+
+is command se Laravel installer pehly se pc mai install hoga aur project ko donwllod hony mai time nahi lagy ga
+ye sirf ek bar chalani hai phri direct nichay wali command se Laravel app banayengy
+aur to check if it is installed 
+
+type Laravel:
+
+
+then:
+Laravel new appname
+
+phir iss kay bad follow the command on terminal
+
+composer update same as npm install
+
+
+
+
+now lets talk about folder
+
+composor.json meta file of Laravel app
+
+vendor folder is same as nodemoules in nodejs project
+
+app kay ander mvc define krtein hein
+and core code app kay andr hota hai
+
+
+http: mai controllers 
+
+routes: web.php kay andr pury paths define krtein hein
+
+console.php ye terminal use krty wat kam atti hai
+
+
+
+resourse: mai imp folder views hota hai jaha html files rkhtein hein blade.php
+
+
+config: and Laravel app ki configuration krein hein
+
+database: kay andr migration seeding etc
+
+
+public: yaha index.html file sub se pehly run hoti hai
+
+robots.txt search engine kay kaam hoti hai}
+
+
+storage: different formats ki files waha store hoti hai. pdf elexel word etc
+logs: errors files
+
+
+tests: dev unit testing ussey related chezein
+
+env. file secerete files rkhtein hein
+
+
+composer.lock  dependencies ki dependencies herrichary
+
+phpunit: testing
+
+vite.config: react veu ko jab Laravel se connect krtein hein toh local server kr kay deta hia
+
+
+
+passing data via routes
+
+dynamic urls
+
+
+controller
+
+
+// to make a controller php artisan make:controller Controllername 
+
+make sure to give name in higher camel case
+
+pass data from router to controller
+copied from userController.php
+<?php
+
+namespace App\Http\Controllers;
+
+abstract class Controller
+{ yaha andr function likho
+    //
+    function getUser()
+    {
+        return "this is a controller";
+    }
+}
+
+
+now to use controller in router
+
+
+use App\Http\Controllers\UserController;
+
+
+to use in route
+
+Route::get("/user", [UserController::class, "index"]);
+
+
+first parameter path second is array
+inside array [1st p is filename:: class, fun name]
+aur us controller kay andr multiple functions  banasktein hein 
+
+
+agr views kay andr dusra folder bhe hai toh ./folder/file nahi karengy balki  folder.filename
+
+
+
+
+baki chezein code mai bhe likehein hein 
+
+now view folder in Laravel 
+ can create files through command and from our code editor
+
+
+to creat through cmd php artisian make:view viewname
+
+convetion is small name
+no need extension
+
+
+
+blade template in Laravel
+
+like ejs ko html mai kesy use krtein
+
+
+template engine for excuting php code
+
+its is module
+
+har ek language kay liye template engine banaya jaya skta hai
+
+{{$variable name}}
+ 
+
+towrite a function in html
+
+{{functionname()}}
+
+hum array direct nahi dikha sktein hein
+array mai indexing dekr show karasktein hein 
+
+
+ifelse use krny kayliye @
+
+@if()
+<h1> enter your html <h1>
+
+@else()
+
+@endif
+
+
+dont need to add {} braces 
+
+
+how to use for loop
+
+@for($i=0; i<=5; $++)
+<h1> 5 times chalega <1>
+{{i}}
+
+@endfor
+akhir mai @endfor use krna hai
+
+
+    @foreach ($myArray as $item)
+    <h5>{{$item}}</h5>
+    @endforeach
+
+
+
+subviews in Laravel
+
+view kay andr view
+
+to include one html file in other html file 
+
+@include('file name')
+
+aur yaha se data pass krna hotoh 
+@include('file name' compact("variablename","variable")
+
+
+@includeif('file name') if check karega agr exit krta hai toh load karega wrna nahi karega error nahi dega
+
+
+
+
+components in Laravel
+
+same as react... reusable 
+just a function
+
+
+component vs function 
+function mai sirf ek hi language ka code likhtein 
+component mai language kay sth ui ka code bhe liketien hein
+
+php artisan make:component component name 
+
+better hai cmd se banawo 
+2 files banegi ek view/components mai dusri app ki view/components mai
+ 
+how to use
+<x-message-banner></x-message-banner>
+ya 
+<x-message-banner />
+x-componentname
+
+uskay bad direct files kay andr use krna hai no import scene 
+
+aur varbiale pass krna thora mushkil hai 
+
+app/view/components 
+waha component kay class mai 
+
+    public $msg;
+public $2ndvariable
+   
+    public function __construct($msg, $secondvariable)
+    {
+   
+        $this->msg = $msg;
+$this->2ndvariable = $2ndvariable;
+    }
+components kay file div kay andr ka jo bhe code hoga wo component hoga
+jaha bhe msg hai wo dekho class mai beh esy krna hai
+
+
+
+aur css class ko bhe bejh sketien hein component mai
+
+class="section"; bs phir dobar component kay class mai variable add krna hoga .dot  nahi dlna hai
+
+aur bhe tarikay hein variable send krny kay 
+
+
+forms pe post 
+
+pe jayengy toh page expire atta haiwo dehan rakhna
+
+security reason se @csrf token hota hia wo bejgna hota hai
+form kay andr @csrf
+
+
+ab form kay andr se data nikalna bht assan hai
+
+controller file mai use illuminate/http/request mai se 
+request ko nichay function kay parameter mai dalna hai simple 
+
+eg
+function myFun(Request $request){
+$request->name
+$request->email
+etc 
+}
+abhi checkbox radio btn unse data extract kraengy
+
+bht assan hai bc
+21feb  aj form validation kay baary mai padhengy
+
+{{-- 21 feb form validation --}}
+
+@if ($errors->any())
+@foreach ($errors->all() as $error)
+<div style="color: red">
+    {{ $error }}
+</div>
+@endforeach
+@endif
+
+@errors is an special variable in php ehich holds form validation errors any() checks for anyyy errors
+
+
+in form input kay sth error dikhan ho toh   
+<input type="text" placeholder="Enter user name" name="name">
+    <span>@error('name'){{ $message }}@enderror</span>
+
+aur ye errors tab  kaam karengy jab validation lagayengy controller mai
+
+rata dekhr yaad kar bc
+  "name" => "required | min:3 | max:10 | unique:users | string",
+   "email" => "required | email",
+ "city" => "required | min:3 | max:10",
+ye specific error generate krta hai yaad karo
+
+1-now how to make own validation rules
+eg: city must be only upper case
+
+how to make:
+php artisan make:rule rulename
+
+then: app kay andr rule ka folder Banega
+baki phir kabhi heavy logic hai
+
+// Url generation
+
+how to get current url 
+{{URL::current()}}
+or
+{{url()->current()}}
+..............
+lekin dono mai key value nahi milengy
+iskayliye
+{{URL::full()}}
+{{url()->full()}}
+how to get previous url
+
+
+{{URL::previous()}}
+{{url()->previous()}}
+
+
+
+// in anchor tag this is away as well
+<a href="{{URL::to('/page2')}}"></a>
+
+
+name ROUtes:
+Route::view("page2", "pratice.2-pratice")->name("page2");
+
+already studied
+
+Route::get("/home/{dynamicVar}, function (){
+retrun""})
+->name("user",["dynamicVar"=> "faisal"])
+
+
+1,
+day4-Route Group with Prefix: 
+
+/facebook/profile, /facebook/images, /facebook/videos
+
+
+
+Route::view("facebook/about", "pratice.2-pratice");
+Route::view("/facebook/messages", "pratice.3-pratice");
+Route::view("/facebook/text", "pratice.3-pratice");
+Route::view("/facebook/videos", "pratice.3-pratice");
+
+
+Route::prefix("facebook")->group(function () {
+    Route::view("/", "pratice.3-pratice");
+    Route::view("/about", "pratice.2-pratice");
+    Route::view("/messages", "pratice.3-pratice");
+    Route::view("/text", "pratice.3-pratice");
+    Route::view("/videos", "pratice.3-pratice");
+});
+   
+
+ab andr facebook likhen ki zaarurat nahi
+aur agr double route same ho tab bhe likh sktein hein eg: facebook/india/ baki nichay prefix waly orutes
+
+
+2method-Route group with COntroller:
+ye Laravel 9 mai ayaha tha,
+
+
+
+// 2nd  route grouping with controller
+
+Route::get("show", [GroupingController::class, "show"]);
+Route::get("add", [GroupingController::class, "add"]);
+Route::get("delete", [GroupingController::class, "delete"]);
+Route::get("edit", [GroupingController::class, "edit"]);
+
+
+
+Route::controller(GroupingController::class)->group(function () {
+    Route::get("show", "show");
+    Route::get("add", "add");
+    Route::get("delete", "delete");
+    Route::get("edit", "edit");
+});
+
+
+
+
+3: middleware in larvael:
+middleware is layer bw user and application 
+
+there we can check conditions or filter user requests.
+agr middleware nahi banaya toh direct req controller kay jayegi
+
+3 types of middleware
+1: global  // jo puri app pe apply hota hai
+2: route  // direct specific route pe
+3: group // group of routes pe routes ka group banakr
+
+// hwo to make middleware
+
+php artisan make:middleware middlewareName
+1 GLOBAL MIDDLEWARE:
+in middlewareName.php file  Handle function ka andr logic likhtein hein middleware ka
+bootsrap kay andr middleware ko import bee karo
+
+1,
+aur bootstrap folder kay andr app.php kay andr 
+
+->withMiddleware ( function .... 
+{ nicy wali line khud likni hai
+$middleware->append(middlewareName::class)
+
+} 
+--------------------------------------------
+$request ka andr reqbody ki har chex milti hai
+
+print_r used for printing array and objects in human readable format
+
+to send params in url ?key=value if multiple use &
+
+destructuring from req body is little hard here
+in js we do {name, age, gender} = req.body 
+in Laravel:
+["name"=> $name, "age"=> $age] = $request->all();
+
+"name", "age"  is from request body and $ mai store kiye
+
+request->has("age") to check does this contain specific element but this does not check a value is empty better approach is 
+$request->filled()
+
+echo "</pre>
+hum arrays ya a abjects ko print karty wqt ye html web page mai achy se formatting krta hai
+
+----------------------------------------
+
+die in middlewaee
+die("message her")
+✅ Stops execution and prints a message.
+🔹 abort() is recommended over die(), as it returns proper HTTP status codes.
+
+
+
+
+3: MIDDLEWARE GROUP:
+is ko single route kay upper bhe apply krsktein hein aur routes kay group par bhe
+
+
+
+        $middleware->appendToGroup("check1",[CountryCheck::class, AgeCheck::class]);
+
+1st para is middleware group name,
+ second is array with middleware names
+agr ek middleware bhe fail huwa toh page view nahi hoga
+
+
+
+now to apply group of middleware to specific routes    
+in web.php
+for single route
+Route::view("/", "pratice.4-pratice")->middleware("ageCountryCheck");
+
+now middleware on group of routes
+
+Route::middleware("ageCountryCheck")->group(function () {
+
+    Route::view("/about", "pratice.2-pratice");
+    Route::view("/messages", "pratice.3-pratice");
+    Route::view("/text", "pratice.3-pratice");
+    Route::view("/videos", "pratice.3-pratice");
+});
+
+
+now applying multiple middles ware on grpup of controllers 
+
+
+Route::middleware(['auth', 'admin'])->controller(GroupingController::class)->group(function () {
+    Route::get("show", "show");
+    Route::get("add", "add");
+    Route::get("delete", "delete");
+    Route::get("edit", "edit");
+});
+
+
+
+
+to apply middleware on a specific route in web.php
+
+
+first import it then
+Route::view("/", "pratice.4-pratice")->middleware(PraticeMw::class);
+
+multiple middleware on single routes 
+Route::view("/", "pratice.4-pratice")->middleware([PraticeMw::class, 2ndmiddlw::class]);
+
+
+
+
+Connect MySQL to database
+
+most used database used with Laravel
+
+first start xampp
+then php click admin and in chrome make a db 
+
+then in Laravel app in root folder 
+go to .env make some changes
+first 
+DB_CONNECTION= sql lite to mysql(
+in small case)
+aur nichy commented chezu ko  uncommented krna hai aur dekh kay edit if needed
+password password hai wo set karo
+session file error hoga 
+
+php artisan migrate
+command dekr fix karo
+
+
+getting data from database
+first direct db use karengy without model
+
+this code is in controler
+use illuminate\Support\Facades\DB;
+
+
+ return DB::select('select * from users');
+
+
+now to connect db to Laravel without migration 
+
+delete larevel db that you have created 
+then make a table and make an entry
+so you will se session error in bowser
+
+go to .env file
+in sessions remove database and add "file"
+
+
+NOW TO DISPLAY DB DATA ON WEB PAGE
+
+same 
+ users DB::select('select * from users');
+
+bas ye views mai passkaro aur waha use karo
+
+ 
+ELOQUENT MODEL IN LARAVEL ya model in other landuages
+use: database ki table mai crud operation
+check config in .env
+
+model : php file with class
+we write business logic and db connections 
+
+but in Laravel we mostely do db related work
+in Laravel we have ORM/eloquent feature
+orm database se easily data fetch karkay framework/app kay andr
+
+in db table ka name try karo pularal rakho
+aur model singular rakhy ga toh automatically connect hoga
+now to create a model
+php artisan make:model student
+
+
+  $students = \App\Models\student::all();
+
+ye all students table kay andr jo bhe data hai nikal kr dega
+
+in model if table and model name isnot singular and pularal
+    protected $table = 'my_users'
+
+
+3️⃣ Using the Model to Access the Table
+Once the model is linked to the table, you can fetch data from the database using Eloquent.
+
+🟢 Fetch All Records
+
+use App\Models\User;
+
+$users = User::all(); // Get all users
+return $users;
+🟢 Fetch a Specific Record by ID
+php
+Copy
+Edit
+$user = User::find(1); // Find user with ID 1
+return $user;
+🟢 Insert Data into the Table
+php
+Copy
+Edit
+$user = new User();
+$user->name = "John Doe";
+$user->email = "john@example.com";
+$user->save();
+🟢 Update a Record
+php
+Copy
+Edit
+$user = User::find(1);
+$user->name = "Updated Name";
+$user->save();
+🟢 Delete a Record
+php
+Copy
+Edit
+$user = User::find(1);
+$user->delete();
+
+baki views kay andr bejh kr apni marzi se view kararasktein hein
+
+
+agr koi dusra fun model se controller mai chayea ho toh
+ $data = new \App\Models\student;
+        echo $data->testFunfaisal();
+
+
+
+INSPECTING MODEL
+
+	database ki tables ki sari details milti hein 
+
+cmd:
+php artisan model:show modelname
+
+
+HTTP CLIENT FEATURE
+ye apis ko call krta Laravel ka andr
+api has json format data 
+aur ye format taqriban sari languages smjhti hein
+
+
+to use a api in Laravel
+first 
+use Illuminate\Support\Facades\Http;
+
+then in controller function 
+
+
+$data = http::get("api ka path/link/url")
+
+
+
+        $data =  Http::get("https://dummyjson.com/products");
+         $data = $data->body();
+        return view("pratice.6-http", ["data" => json_decode($data)]);
+    }
+}
+
+
+<ul>
+        @foreach ($data->products as $product)
+            <li>{{$product->id}}</li>
+            <li>{{$product->title}}</li>
+            <li>{{$product->description}}</li>
+            <br>
+        @endforeach
+    </ul>
+
+
+
+DATABASE QUERY BUILDER
+database class kay functions ko querry builders  kehty hein 
+
+queries using eloquent 
+use Illuminate\Support\Facades\User;
+ $users = \App\Models\User::all();
+
+🟢 DB::table() (Query Builder)    vs
+✅ Works on any table inside the database.
+✅ Does not require a model to fetch data.
+✅ Good for complex queries, joins, and raw SQL execution.
+🟢 Model::query() (Eloquent ORM)
+✅ Works only on the table defined in the model.
+first import model in Controller 
+use App\Models\ModelName
+then write queries
+
+get() and all () both are same
+
+ $users = User::find(3);
+ User::where('id', 5)->update(['name' => 'Spiderman']);
+
+single data show nahi hoga qki wo object ki form mai hota hai array ki form mai nai
+
+
+
+  User::insert(['name' => 'Elon musk',
+            'email' => 'elon@tesla.com',
+            'password' => 'tesla'
+        ]);
+
+
+  // User::where('id', 5)->update(['name' => 'Spiderman 2']);
+
+
+public $timestamps=fasle;
+if any error comes while updating
+
+
+--------------------------------------
+
+
+ROUTE METHODS
+
+in web.php
+Route is a class 
+and get is method there are 7 route methods
+
+ye padhay hein just need a review
+
+patch is for single update
+put is for bulk updates at a time
+
+options
+view and get are almost same
+
+
+
+ROUTE ANY & MATACH FUN
+
+jtine beh routes hai unko sirf ek hi function karana ho
+Route::any("user", [usercontrooler::class,  'anyfucntion']);
+
+kisi bhe route method pe Route::any chalega
+
+
+
+MATCH FUNCTION
+
+Route::match("[get", "delete"], "yourpath", your controller);
+
+
+
+
+
+-------------------------------
+LARAVEL HTTP CLASS
+
+to get all data from http request 
+
+how to use 
+first import request method on top
+controller mai default pe hoti hai
+aur fun mai (Request $var)
+
+$var contains all the data
+
+var->name, var->email   evetrthing
+
+var->ip() se user ka ip address miljayega
+
+
+
+----------------------------------------
+SESSION IN LARAVEL
+
+session ka data serverside pe store hota hia aur manage borwser mai cookies kay thourgh
+
+
+// now to store request data in sessions
+
+
+   $name = $request->name;
+      $request->session()->put("name", $name);
+
+
+return
+
+
+Storing a session value
+
+
+session(["email" => $request->email]);  
+This is the same as $request->session()->put("email", $email);
+
+
+Retrieving a session value
+
+echo session("email");  
+This is equivalent to $request->session()->get("email");
+
+✅ 1. Remove a Single Session Value
+Use the forget() method:
+
+
+$request->session()->forget("email");
+OR using the helper function:
+
+session()->forget("email");
+
+
+
+✅ 2. Remove All Session Data (Clear Everything)
+Use the flush() method:
+
+
+$request->session()->flush();
+OR using the helper function:
+
+
+session()->flush();
+
+
+✅ 3. Remove and Retrieve a Value (Pull Method)
+If you want to retrieve and delete the session value at the same time:
+
+
+$email = $request->session()->pull("email");
+This is the same as:
+
+$email = session()->pull("email");
+💡 pull() removes and returns the value in one step.
+
+
+ FlASH SESSION 
+
+it stores data until we refresh the page
+
+it is used for basically display error and success messages
+
+session()->flash("message", "User has been added successfully");
+
+to extend flash session or keep session
+
+{{session()->reflash()}}
+
+and to keep a session
+
+{{session()->keep(["name"])
+
+
+-------------------------------------------
+UPLOAD AND DISPLAY FILES
+jab user se form kay zarye files leni ho toh
+
+
+   <form action="" method="POST" enctype="multipart/form-data">
+
+
+in controller
+
+$path = $request->file("file")->store("public");
+"fiel" input name hai
+agr public files mai pics show nahi hvi toh run this command
+php artisan storage:link
+
+
+
+-----------------------------------
+              LOCALIZATION
+multiple language zaban support in our website app 
+run command
+php artisan lang:publish
+
+middlewatre
+languages ka locha itna imp nahi lagraah
+
+
+---------------------------------------
+
+GET AND DISPLAY DATA FROM DB
+
+use App\Models\student;
+  $studentData = student::all();
+manually write table name in model ifits not plulrar
+ protected $table = "students";
+
+DELETE DATA FROM MYSQL TABLE
+to put a variable inside route
+  <a href="{{ route('delete', $student->id) }}">Delete</a>
+
+
+
+multiple ways to delete a record 
+public function delete($id)
+{
+    $student = Student::find($id);
+
+    if ($student) {
+        $student->delete();
+        return "Student deleted successfully.";
+    }
+
+    return "Student not found.";
+}
+
+
+2,public function delete($id)
+{
+    $deletedRows = Student::where('id', $id)->delete();
+
+    return $deletedRows ? "Deleted successfully." : "Record not found.";
+}
+Pros:
+✔ Can delete multiple records if needed.
+✔ Doesn't require loading the model into memory (better performance in large datasets).
+
+
+
+This method will automatically throw an error if the student is not found.
+
+php
+Copy
+Edit
+public function delete($id)
+{
+    $student = Student::findOrFail($id);
+    $student->delete();
+
+    return "Deleted successfully.";
+}
+
+baki sub se best performance wala nahi parah
+
+
+EDIT AND POPULATE DATA FROM INPUT FIELDS
+
+ add wala kiya hai edit wala rehgaya hai
+
+@ ya isset($varname)  
+ye dono error generate nahe karengy value use krty wqt
+
+
+
+
+----------------------------------
+
+ADD PAGINATION IN YOUR RESULT
+
+IN CONTROLLER
+function list()
+    {
+        $studentData = student::all();
+        return view("pratice2.10-p", ["studentData" => $studentData]);
+    }
+ replace all with paginate(5) aur 5 means ek page pe kitna data students dekhana chahte ho
+
+2nd method is apply pagination links
+ {{$studentData->links()}}
+
+bht assan hai 
+3rd apply styling
+// do barey <> icons ayengy default
+<style>
+        .w-5.h-5{
+            width: 10px;
+            height: 10px
+        }
+    </style>
+
+class select karo ok
+
+
+
+----------------------------
+DELETE MULTIPLE ITEMS AT ONCE
+in controller
+  $result = student::destroy($request->ids);
+inside student list
+
+ <form action="{{route('delete')}}" method="POST">
+            @csrf
+            <li><input type="checkbox" name="ids[]" value="
+
+
+
+___________________________________________
+UPLOAD AND DISPLAY IMAGES WITH DATABASE
+
+
+images ko database kay andr store nahi kiya jata balki uskay path ko store kiya jata hai aur files ko Laravel mai mai rakhtein hein
+
+
+jab image/vid/pdf upload karetin hai toh public nahi hot unko public krna hotahai
+
+now to extract image path
+  function upload(Request $request) {
+
+        $path = $request->file(("file"))->store("public");
+        
+        $pathArr = explode("/", $path);
+        $fileName = $pathArr[1];
+        $img = new Image();
+        $img->path = $fileName;
+        if($img->save()) {
+            return "success";
+        }
+    }
+
+
+$fileName = $file->hashName();  ye be ek tarika hai img name extract krne ka
+
+ye pura function ratta lagawo
+
+
+aur images html hai show karani hotoh
+
+@if (@isset($images))    
+
+@foreach ($images as $image)
+    <img style="height: 100px" src="/storage/{{$image->path}}" alt="">
+
+
+
+-----------------------------------
+BUILDING A LAYOUT WITH COMPONENT
+
+template for reuse code reuse common ui reuse style 
+
+bos#a 
+
+<x-name> 
+<x-slot name="title">  title foes here  </x-slot>
+<x-slot name="main">  main content foes here  </x-slot>
+</x-name>
+
+------------------------------------
+
+// adding bootstrap to Laravel
+
+direct main component mai direct past karo cdn link 
+
+where to write CSS and JS
+how to use with layout component
+
+root PUBLIC folder kay andr css and js ka folder banawo aur waha css js likho
+
+aur files ko use krny kay liye direct 
+css/filename.css and js/filename.js 
+
+aur dusri links bhe mai component kay andr dalo waha se dusry compoennents mai atuo jayei
+
+
+
+------------------------------
+layouts using template inheritance
+
+@extends   means main page ko dursy page mai dalna 
+Used to inherit a master layout.
+Works with @section and @yield.
+
+
+@extends('layouts.app') // main page
+
+@section('title', 'Home Page')
+
+@section('content')
+    <h1>Welcome to Home</h1>
+@endsection
+
+
+
+
+--------------------------------------------
+MIGRATION IN LARAVEL
+
+it just the creation of table in Laravel and connecting it to database
+if we have to make a table we wll creat it from database
+
+this is not good approach instead 
+php artisan make:migration tablename
+
+table_name esy save karega name
+
+
+
+this will create an entry
+in tablename file
+up function means table will be created
+
+
+down function means table will be deleted
+
+
+     */
+    public function up(): void
+    {
+        //
+        Schema::create('test', function (Blueprint $table) {
+            $table->id();
+          $table->string('name');
+            $table->string('email');
+            $table->timestamps();
+        });
+
+test table ka name hai
+define schema by yourself
+
+
+to shif this to database
+to migrate first check laravelapp is connected to db
+
+then 
+php artisan migrate
+
+-------------------------------------
+MIGRATION IMPORTANT COMMANDS
+reset migration 
+php artisan migrate:reset
+isse jitni bhe table migrate kay bani thee database mai wo sub remove honjayengi bd se 
+
+for specfix files migrate
+
+ROLLBACK
+php artisan migrate:rollback  its same as undo
+
+php artisan migrate:rollback  --step 2
+se last ki 2 migrations undo hongi
+
+
+------------------------------------------------SEEDING IN LARAVEL
+
+seedind means Laravel kay through db table  mai dumny data ki entry karana
+
+
+ php artisan make:seeder nameSeeder
+
+
+**
+in MemberSeeder file
+   
+    public function run(): void
+    {
+        //
+        DB::table("members")->insert([
+            "name" => Str::random(10),
+            "email" => Str::random(10) . "@gmail.com",
+            "address" => Str::random(10)
+        ]);
+    }
+
+
+then,,,
+php artisan db:seed --class=MemberSeeder 
+
+this command will insert one row data to 
+
+
+-----------------------------------------
+MAINTANCE MODE IN LARAVEL
+
+app is under maintenance
+
+maintaince you know better bruhhh
+
+
+
+
+php artisan down
+
+php artisan up
+
+
+
+if website is under maintance mode but want to show to specific user/developers 
+
+php artisan down --secret="websitename/this secrete code"
+
+to visit website
+
+
+-----------------------------------
+
+LARAVEL ACCESSORS
+
+methods that are written in model 
+inka kamm jab hum db se data get krty hein to modify krna
+database mai changes nahi karengy
+
+eg agr db table mai hamara name hotoh show karte wqt sub ko smallcase ya large case etc
+a kind of middlewares
+
+
+
+GET FOR ACCESSOR
+in model file:
+    function getNameAttribute($value){
+
+        return ucfirst($value);
+    }
+}
+
+CAN HAVE MULTIPLE FUNC FOR EACH COLUMNS  
+pura logic name mai hai
+
+get //same
+Name // table mai column ka naam first letter must be capital
+Attribute // same
+
+
+aur $value mai names ayengy column kay
+ucfirst() built in method hai first letter ko capital krne ka
+
+example 2
+ 
+    function getEmailAttribute($value){
+
+        return "Hello $value";
+    }
+
+
+add hello before all emails
+
+
+
+-------------------------------------------
+LARAVEL MUTATORS
+
+//STORE
+mutators Laravel mai esy function hotein hein jo database mai data store krny se pehly usko modify karsktein hein
+
+
+
+
+useful for saving data from form espically
+
+
+in controller
+
+    function save()
+    {
+
+        $user = new User;
+        $user->name = "patric";
+        $user->email = "patric.dev@purple.com";
+        $user->password = "batmaeen";
+
+        if ($user->save()) {
+            echo "added student";
+        }
+    }
+
+
+
+in model user
+SET FOR MUTATORS 
+function setNameAttribute($val){
+        $this->attributes["name"] = ucfirst($val);
+
+    }
+
+
+
+
+
+
+
+
+----------------------------------
+
+LARAVEL ONE TO ONE RELATIONSHIP
+
+
+Laravel mai relationships ko bolte hein eloquent relationships
+
+relationships in Laravel??
+4 types in Laravel
+
+first is one to one
+
+
+2 tables kay bitch mai se data ko uthana kisii relatioinship kay base pe
+
+
+one to one means
+ek table ki ek row dusri table ki ek row se connect hogi
+
+2: one to many
+3: many to one 
+4: many to many
+
+
+
+ab jakr tables vs migrations vs models smjh aya 7:2pm 26feb
+
+ONE TO ONE
+to check one table relationship with onother relationship and get data 
+first  we have two tables sellers and products 
+
+now in seller model-> make a function
+
+ function  productData(){
+        return $this->hasOne("App\Models\Product", "seller_id");
+    }
+2nd paramater is coloumn jis se id/row match krni ho
+ye product id aur seller id match karke result dega 
+one to one
+hasOne is a method
+
+In controller:
+  $seller = Seller::find(1)->productData;
+
+
+
+this will check related data 
+from each other eg with id 
+
+
+yaha explain nahi krskta baki  pratically kiya aur smjh aya
+
+
+----------------------------------
+ONE TO MANY RELATIONSHIP
+
+ek table ki ek row dursy row ki multiple rows se connected hogi
+
+
+in controller
+
+    function manyList(){
+        return Seller::find(3)->productData2;
+    }
+
+in model
+
+ function productData2(){
+        return $this->hasMany("App\Models\Product", "seller_id");
+    }
+
+---------------------------
+MANY TO ONE RELATIONSHIP
+
+khuda ka shukr hai code krna hai padhraha hai upper waly se kam chalraha hai
+
+
+in controller
+ function manyList(){
+        return Seller::find(3)->productData2;
+    }
+
+
+in seller model
+
+
+    function productData2(){
+        return $this->hasMany("App\Models\Product", "seller_id");
+    }
+
+
+-----------------------------------
+MANY TO ONE RELATIONSHIP
+
+in     product model
+  function productData3(){
+        return $this->belongsTo("App\Models\Seller", "seller_id");
+    }
+
+in controller
+
+  function manyToOne() {
+        $data = Product::with("productData3")->get();
+        return $data;
+    }
+
+
+hasMany() → One Seller → Many Products
+belongsTo() → Many Products → One Seller
+Use with('relationName') to load related data.
+
+
+
+
+-------------------------------------
+SEND EMAIL IN LARAVEL
+
+
+first do configuratiosn in .env file
+
+app password isnot avaliabe in your country ye reh gaya
+
+ye pura parhna hai yar 
+
+
+-----------------------------------------
+
+ROUTE MODEL BINDING
+
+
+route aur model dono ko inject krna kam se kam code likh kr
+
+Route Model Binding in Laravel
+Route Model Binding in Laravel automatically fetches a model instance based on the route parameter, so you don’t need to manually query the database.
+
+in web.php
+
+Route::get("/device/{key}", [DeviceController::class, "index"]);
+
+// device is model name
+  function  index(Device $key){
+
+        return $key;
+    }
+
+
+yaha route mai jab hum koi variable pass krten hein toh function mai model ko value pass hoti hai(default id pe) then it show the result 
+1 id ka data table se fetch karkay dega
+
+Route::get("/device/{key:name}", 
+
+hum ne yaha column name ko mention kiya 
+ab column mai jo data hai uska nam denga toh table se result ayega
+
+devices mai multiple name colum kay andr same hosktein hein lekin wo sirf first waly ko fetch karkay layega
+
+to solve this issue
+
+return $key->all; 
+
+will fetch all data with same name
+
+
+and we can fetch data from multiple tables
+
+ function show(User $user, Post $post)
+-----------------------------------------
+Laravel 11 features
+
+
+
+---------------------------
+
+INSTALL API PACKAGE
+
+php artisan install:api
+
+
+
+ab jitney bhe api routes hongy wo 
+api.php kay andr lihengy 
+ 
+
+our browers pe serach 
+localhost/api/ your path
+
+api----->> extra llikhna hai
+
+
+making our first api
+
+jaha data database se uth kr ayega
+
+same as first setting karo db ki .env file mai
+
+
+4 api methods 
+
+get post put/patch delete
+
+
+get sirf borwser se directely call hota hai
+
+need a tool like thunder or postman
+
+    return $req->input();
+will fetch all data from input
+
+test my routes 
+and payin with thunder client
+
+
+
+    function addStudent(Request $req){
+
+        $std = new student();
+
+        $std->name = $req->name;
+        $std->email = $req->email;
+        $std->batch = $req->batch;
+       if( $std->save()){
+        echo "studnets added to databasds";
+        return $req->input();
+       }
+
+
+	std->save()  
+
+
+------------------------------------
+MAKE API WITH PUT METHOD 
+
+
+put means data  ko update krna
+
+
+data ko create krny kay liye 	NEW 
+use krna hota hai aur update kay liye new instance ki zarurat nahi
+
+to create
+ $std = new student();
+to upadate
+ $std = student::find();
+
+
+
+
+
+------------------------------------------------------------
+AUTHENTAICATION IN LARAVEL
+
+1, session based authentication
+the oldest way of autehntaciaion in aravel
+
+
+2, manual  Auth class
+no need to create and destroy session
+
+
+3, starter kit
+Laravel breeze,
+Laravel Jetstream,
+Laravel fortify
+
+eg: resigstatrion/loginpage
+forget pass
+email verifaition , 2fa
+
+no need to code
+they usually use auth class
+
+
+
+4,Api authentication
+sanctum method, passport method
+or using 3rd party like fb , goole in kayliy AP authentication  use hoti hai
+
+first import Auth class
+in controller fun:
+ 
+
+    function UserLogin (Request $req){
+        $cred = $req->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        if(Auth::attempt($cred)){
+            return view('welcome');
+        }
+    }
+
+by default Auth class "users" table mai jakr email aur pass check karega
+agr agr dusry table ko set krna ho toh
+
+Config/auth.php 
+there change table name
+Auth has multiple methods, auth::user, auth::id and more check guest logout
+
+
+user aur id tab kam kaaregny jab user successfully auth compele karrah ho
+
+
+auth::check  to check if user is login or not 
+guest is opposite of check
+auth::logout -> if want to logout user 
+
+
+in auth.php
+
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+    ],
+users is a table where we save users login information
+
+function postRegisterUser(Request $req)
+    {
+
+        $data =  $req->validate([
+            'name'=> 'required',
+            'email'=> 'required|email',
+            'password'=> 'required',
+        ]);
+
+        $user = User::create($data)
+
+
+
+agr form ki keys/names aur table ki columns same huway toh direct save krsttein hein 
+aur data direct save hofa
+
+
+everthing is fine lekin password encrypted huwa
+
+  protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+jab bhe data save hoga toh hash from mai save hoga
+
+hashed Laravel ka khud ka method hai jo password ko encrypt krta hai
+
+ye user.php model kay andr method hai jo password ko encrypt krta hai
+
+ye migrate krty wqt khud bana tha mery hath saaf hein lol haha
+
+
+
+
+{{auth::user()->name}}
+
+user is a built in method and name is key/column in table of userboject
+
+
+
+auth::logout session ko destroy krta hai
+
+session Laravel mai kaha store hotein hein??
+storeage/famework/sessions
+
+
+we can even use auth methods inside blade file like user is login or not!!
+
+{{auth()->check()}}
+
+
+
+
+----------------------------------------
+
+ahhh!!! sh$t here we go again 
+
+
+php artisan make:middleware middleware name;
+MIDDLEWARE
+
+1, route middle
+2, middle groups
+3, global middleware
+
+
+
+TO use a middleware first import it in web.php
+
+in middleware/filename.php
+ public function handle(Request $request, Closure $next): Response
+
+    {
+
+Logic goes here 
+        return $next($request);
+    }
+
+
+in web.php
+
+FOR ROUTEMIDDLEWAWRE;
+
+apply middleware same as name;
+
+
+Route::get('dashboard' , [usercontroller::class , 'user'])->middlerware(validUser::class);
+
+
+
+------------------------------------
+2, MIDDEWARE GORUPS
+BOOTSTRAP/APP.PHP
+
+hum multiple middleware ko ek group mai dalty hein aur group ka ek naam dety hein 
+
+inside this function 
+  ->withMiddleware(function (Middleware $middleware) {
+    
+
+use this middleware method appendToGroup
+        $middleware->appendToGroup('group-name',[VaidUser::class, ValidAge::class]);
+
+1st parmater: middlewaregroupname
+
+2nd parameter: [middlewarename::class, middlwae::class,]
+
+
+HOW TO USE:::::::: middleware groups
+ in web.php
+
+insert iname inside []
+Route::get('dashboard', [UserController::class, 'dashbaord'])->middleware(['groupname'])
+
+----------------------------------------
+3, globalmiddleware
+
+inside withMiddleware function:
+
+  $middleware->append(validUser::class);
+
+if use multiple global middlewares
+
+
+$middleware->use([user::class, gae::class])
+
+===========================================
+php artisan make:migration add_role_and_age_to_users_table --table=users
+to add a column to table after created
+============================================
+
+=========================================
+php artisan make:request RegisterUserRequest
+This will create a file at:
+📂 app/Http/Requests/RegisterUserRequest.php
+
+  * Define validation rules.
+     */
+    public function rules(): array
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'role' => 'required|in:guest,admin',
+            'age' => 'required|integer|min:1',
+        ];
+    }
+in controller 
+function postRegisterUser(RegisterUserRequest $request)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
